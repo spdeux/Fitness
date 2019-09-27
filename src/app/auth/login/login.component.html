@@ -1,0 +1,18 @@
+<section>
+    <form fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <mat-form-field>
+            <input type="email" matInput placeholder="Email" name="email" ngModel #emailInput="ngModel" required
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+            <mat-error *ngIf="emailInput.hasError('required')">field must not be empty</mat-error>
+            <mat-error *ngIf="emailInput.errors && emailInput.errors.pattern">email is invalid</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="should be at least 6 characters long.">
+            <input type="password" matInput placeholder="Password" name="password" ngModel #pwInput="ngModel"
+                minlength="6" required>
+            <mat-hint align="end">{{pwInput.value?.length}} / 6 </mat-hint>
+            <mat-error>should be at least 6 characters long.</mat-error>
+        </mat-form-field>
+        <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">submit</button>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </form>
+</section>
